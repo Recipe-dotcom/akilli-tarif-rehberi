@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mutfak Rehberi | Evdeki Malzemelerle Tarifler</title>
+  <style>
+    :root {
+      --primary: #2d6a4f;
+      --secondary: #52b788;
+      --accent: #d8f3dc;
+      --bg: #f8f9fa;
+      --card-bg: #ffffff;
+      --text: #1b4332;
+      --muted: #555555;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      padding-bottom: 50px;
+    }
+
+    header {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      padding: 40px 20px;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+
+    .logo-icon {
+      width: 42px;
+      height: 42px;
+      fill: white;
+    }
+
+    header h1 {
+      font-size: 2.2rem;
+      font-weight: 700;
+    }
+
+    header p {
+      font-size: 1.1rem;
+      opacity: 0.95;
+      max-width: 650px;
+      margin: 8px auto 0;
+    }
+
+    .container {
+      max-width: 1050px;
+      margin: 30px auto;
+      padding: 0 20px;
+    }
+
+    .search-box {
+      background: var(--card-bg);
+      padding: 24px;
+      border-radius: 14px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+      margin-bottom: 30px;
+    }
+
+    .search-box label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .search-input-wrapper {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    input[type="text"] {
+      flex: 1;
+      min-width: 260px;
+      padding: 14px 16px;
+      border: 2px solid #e2e8f0;
+      border-radius: 8px;
+      font-size: 1rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    input[type="text"]:focus {
+      border-color: var(--secondary);
+    }
+
+    button {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 14px 24px;
+      font-size: 1rem;
+      font-weight: 600;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    button:hover {
+      background: #1b4332;
+    }
+
+    .info-bar {
+      font-size: 0.95rem;
+      color: var(--muted);
+      margin-bottom: 20px;
+      padding: 0 4px;
+    }
+
+    .recipe-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+      gap: 20px;
+    }
+
+    .recipe-card {
+      background: var(--card-bg);
+      border-radius: 12px;
+      padding: 20px;
+      border: 1px solid #eaeaea;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .recipe-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+    }
+
+    .recipe-card h3 {
+      color: var(--primary);
+      font-size: 1.25rem;
+      margin-bottom: 8px;
+    }
+
+    .match-tag {
+      display: inline-block;
+      font-size: 0.8rem;
+      padding: 4px 10px;
+      background: var(--accent);
+      color: var(--primary);
+      border-radius: 20px;
+      font-weight: 600;
+      margin-bottom: 12px;
+      width: fit-content;
+    }
+
+    .ingredients-list {
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin-top: 10px;
+    }
+
+    .highlight {
+      font-weight: bold;
+      color: var(--primary);
+      text-decoration: underline;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 50px 20px;
+      background: white;
+      border-radius: 12px;
+      color: var(--muted);
+      grid-column: 1 / -1;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo-container">
+      <svg class="logo-icon" viewBox="0 0 24 24">
+        <path d="M12 3C7.03 3 3 7.03 3 12C3 15.69 5.24 18.86 8.5 20.2V21C8.5 21.55 8.95 22 9.5 22H14.5C15.05 22 15.5 21.55 15.5 21V20.2C18.76 18.86 21 15.69 21 12C21 7.03 16.97 3 12 3M12 5C15.86 5 19 8.14 19 12C19 14.73 17.44 17.11 15.18 18.28C14.78 18.49 14.5 18.9 14.5 19.36V20H9.5V19.36C9.5 18.9 9.22 18.49 8.82 18.28C6.56 17.11 5 14.73 5 12C5 8.14 8.14 5 12 5Z"/>
+      </svg>
+      <h1>Mutfak Asistanı</h1>
+    </div>
+    <p>Dolabındaki malzemeleri yaz, 50 zengin tarif arasından pişirebileceklerini anında keşfet.</p>
+  </header>
+
+  <div class="container">
+    <div class="search-box">
+      <label for="ingredientInput">Elindeki Malzemeler (Virgülle veya boşlukla ayırarak yaz):</label>
+      <div class="search-input-wrapper">
+        <input type="text" id="ingredientInput" placeholder="Örn: domates, yumurta, zeytinyağı, peynir...">
+        <button onclick="filterRecipes()">Tarifleri Bul</button>
+      </div>
+    </div>
+
+    <div class="info-bar" id="resultCount">Tüm tarifler listeleniyor (50 tarif)</div>
+    <div class="recipe-grid" id="recipeGrid"></div>
+  </div>
+
+  <script>
+    const database = [
+      { name: "Menemen", ingredients: ["yumurta", "domates", "biber", "zeytinyağı", "tuz", "karabiber"] },
+      { name: "Mercimek Çorbası", ingredients: ["kırmızı mercimek", "soğan", "havuç", "zeytinyağı", "salça", "kimyon"] },
+      { name: "Karnıyarık", ingredients: ["patlıcan", "kıyma", "soğan", "domates", "biber", "sarımsak", "zeytinyağı"] },
+      { name: "Zeytinyağlı Taze Fasulye", ingredients: ["taze fasulye", "domates", "soğan", "zeytinyağı", "şeker", "sarımsak"] },
+      { name: "Fırında Somon", ingredients: ["somon", "limon", "zeytinyağı", "sarımsak", "biberiye", "karabiber"] },
+      { name: "Mercimek Köftesi", ingredients: ["kırmızı mercimek", "ince bulgur", "taze soğan", "maydanoz", "salça", "kimyon", "limon"] },
+      { name: "Mücver", ingredients: ["kabak", "yumurta", "un", "dereotu", "beyaz peynir", "zeytinyağı"] },
+      { name: "Fırında Hamsi", ingredients: ["hamsi", "mısır unu", "zeytinyağı", "tuz", "limon"] },
+      { name: "Kısır", ingredients: ["ince bulgur", "domates salçası", "nar ekşisi", "taze soğan", "maydanoz", "zeytinyağı", "marul"] },
+      { name: "Patates Salatası", ingredients: ["patates", "taze soğan", "maydanoz", "zeytinyağı", "limon", "hardal", "tuz"] },
+      { name: "Tavuk Sote", ingredients: ["tavuk göğsü", "biber", "domates", "soğan", "sarımsak", "kekik", "zeytinyağı"] },
+      { name: "Şakşuka", ingredients: ["patlıcan", "kabak", "patates", "domates", "sarımsak", "zeytinyağı", "biber"] },
+      { name: "Domates Çorbası", ingredients: ["domates", "un", "tereyağı", "süt", "kaşar peyniri", "karabiber"] },
+      { name: "Kuru Fasulye", ingredients: ["kuru fasulye", "soğan", "salça", "zeytinyağı", "biber", "pul biber"] },
+      { name: "Nohut Yemeği", ingredients: ["nohut", "soğan", "biber salçası", "et suyu", "zeytinyağı", "kimyon"] },
+      { name: "İzmir Köfte", ingredients: ["kıyma", "patates", "domates", "biber", "ekmek içi", "yumurta", "soğan"] },
+      { name: "Pirinç Pilavı", ingredients: ["pirinç", "şehriye", "tereyağı", "zeytinyağı", "sıcak su", "tuz"] },
+      { name: "Bulgur Pilavı", ingredients: ["bulgur", "domates", "biber", "soğan", "tereyağı", "salça"] },
+      { name: "Ispanak Yemeği", ingredients: ["ıspanak", "pirinç", "soğan", "zeytinyağı", "salça", "yoğurt"] },
+      { name: "Cacık", ingredients: ["yoğurt", "salatalık", "sarımsak", "zeytinyağı", "kuru nane", "tuz"] },
+      { name: "Fasulye Piyazı", ingredients: ["haşlanmış fasulye", "kırmızı soğan", "maydanoz", "tahin", "limon", "haşlanmış yumurta", "sirke"] },
+      { name: "Yayık Mantar Sote", ingredients: ["kültür mantarı", "tereyağı", "soğan", "sarımsak", "kekik", "karabiber"] },
+      { name: "Peynirli Omlet", ingredients: ["yumurta", "beyaz peynir", "tereyağı", "maydanoz", "tuz"] },
+      { name: "Sebzeli Makarna", ingredients: ["makarna", "kabak", "biber", "domates", "zeytinyağı", "fesleğen"] },
+      { name: "Köz Patlıcan Salatası", ingredients: ["köz patlıcan", "sarımsak", "yoğurt", "zeytinyağı", "ceviz"] },
+      { name: "Fırın Makarna", ingredients: ["fırın makarna", "beşamel sos", "kaşar peyniri", "tereyağı", "süt", "un"] },
+      { name: "Levrek Buğulama", ingredients: ["levrek", "domates", "soğan", "limon", "defne yaprağı", "tereyağı"] },
+      { name: "Yayla Çorbası", ingredients: ["yoğurt", "pirinç", "yumurta", "un", "tereyağı", "nane"] },
+      { name: "Tarhana Çorbası", ingredients: ["toz tarhana", "tereyağı", "salça", "sarımsak", "nane"] },
+      { name: "Etli Biber Dolması", ingredients: ["dolmalık biber", "kıyma", "pirinç", "soğan", "domates", "maydanoz", "baharat"] },
+      { name: "Zeytinyağlı Enginar", ingredients: ["enginar çanağı", "bezelye", "havuç", "patates", "zeytinyağı", "dereotu", "limon"] },
+      { name: "Karnabahar Graten", ingredients: ["karnabahar", "beşamel sos", "kaşar peyniri", "muskat", "karabiber"] },
+      { name: "Fırında Sebzeli Tavuk", ingredients: ["tavuk but", "patates", "havuç", "sarımsak", "biberiye", "zeytinyağı"] },
+      { name: "Humus", ingredients: ["haşlanmış nohut", "tahin", "limon", "sarımsak", "kimyon", "zeytinyağı"] },
+      { name: "Haydari", ingredients: ["süzme yoğurt", "beyaz peynir", "sarımsak", "dereotu", "zeytinyağı", "ceviz"] },
+      { name: "Zeytinyağlı Pırasa", ingredients: ["pırasa", "havuç", "pirinç", "portakal suyu", "zeytinyağı", "şeker"] },
+      { name: "Portakallı Kurabiye", ingredients: ["portakal kabuğu", "un", "şeker", "tereyağı", "kabartma tozu", "vanilya"] },
+      { name: "Elmalı Kurabiye", ingredients: ["elma", "tarçın", "ceviz", "un", "tereyağı", "pudra şekeri"] },
+      { name: "Tahinli Kurabiye", ingredients: ["tahin", "pudra şekeri", "sıvı yağ", "un", "ceviz"] },
+      { name: "Hira Tatlısı", ingredients: ["irmik", "un", "yoğurt", "sıvı yağ", "kabartma tozu", "şerbet"] },
+      { name: "Sütlaç", ingredients: ["süt", "pirinç", "şeker", "nişasta", "vanilya", "tarçın"] },
+      { name: "Kakaolu Islak Kek", ingredients: ["kakao", "un", "yumurta", "şeker", "süt", "sıvı yağ", "kabartma tozu"] },
+      { name: "Krep", ingredients: ["un", "süt", "yumurta", "tuz", "tereyağı"] },
+      { name: "Pancake", ingredients: ["un", "süt", "yumurta", "kabartma tozu", "şeker", "bal"] },
+      { name: "Patates Püresi", ingredients: ["patates", "süt", "tereyağı", "muskat", "tuz", "karabiber"] },
+      { name: "Fırın Tavuk Kanat", ingredients: ["tavuk kanat", "yoğurt", "salça", "zeytinyağı", "kekik", "sarımsak"] },
+      { name: "Semizotu Salatası", ingredients: ["semizotu", "yoğurt", "sarımsak", "zeytinyağı", "ceviz"] },
+      { name: "Pesto Soslu Makarna", ingredients: ["makarna", "taze fesleğen", "çam fıstığı", "parmesan", "zeytinyağı", "sarımsak"] },
+      { name: "Kabak Çorbası", ingredients: ["kabak", "patates", "soğan", "krema", "zeytinyağı", "dereotu"] },
+      { name: "Kalamar Tava", ingredients: ["kalamar", "un", "karbonat", "sıvı yağ", "limon", "tarator sos"] }
+    ];
+
+    function renderRecipes(list, searchTerms = []) {
+      const grid = document.getElementById("recipeGrid");
+      grid.innerHTML = "";
+
+      if (list.length === 0) {
+        grid.innerHTML = `<div class="empty-state">
+          <h3>Eşleşen tarif bulunamadı</h3>
+          <p>Daha genel malzemeler yazmayı (örneğin: "domates", "zeytinyağı", "yumurta") deneyebilirsiniz.</p>
+        </div>`;
+        return;
+      }
+
+      list.forEach(item => {
+        const card = document.createElement("div");
+        card.className = "recipe-card";
+
+        const matchedCount = searchTerms.length > 0 
+          ? item.ingredients.filter(ing => searchTerms.some(st => ing.toLowerCase().includes(st))).length 
+          : 0;
+
+        const formattedIngredients = item.ingredients.map(ing => {
+          const isMatch = searchTerms.some(st => ing.toLowerCase().includes(st));
+          return isMatch ? `<span class="highlight">${ing}</span>` : ing;
+        }).join(", ");
+
+        card.innerHTML = `
+          <div>
+            <h3>${item.name}</h3>
+            ${searchTerms.length > 0 ? `<div class="match-tag">${matchedCount} malzeme eşleşti</div>` : ''}
+            <div class="ingredients-list">
+              <strong>Malzemeler:</strong> ${formattedIngredients}
+            </div>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    function filterRecipes() {
+      const rawInput = document.getElementById("ingredientInput").value.trim().toLowerCase();
+      if (!rawInput) {
+        document.getElementById("resultCount").textContent = "Tüm tarifler listeleniyor (50 tarif)";
+        renderRecipes(database);
+        return;
+      }
+
+      const terms = rawInput.split(/[\s,]+/).filter(t => t.length > 1);
+
+      const scored = database.map(recipe => {
+        let matchCount = 0;
+        recipe.ingredients.forEach(ing => {
+          if (terms.some(term => ing.toLowerCase().includes(term))) {
+            matchCount++;
+          }
+        });
+        return { recipe, matchCount };
+      });
+
+      const results = scored
+        .filter(item => item.matchCount > 0)
+        .sort((a, b) => b.matchCount - a.matchCount)
+        .map(item => item.recipe);
+
+      document.getElementById("resultCount").textContent = `${results.length} tarif bulundu`;
+      renderRecipes(results, terms);
+    }
+
+    document.getElementById("ingredientInput").addEventListener("keyup", function(e) {
+      if (e.key === "Enter") filterRecipes();
+    });
+
+    renderRecipes(database);
+  </script>
+</body>
+</html>
